@@ -10,6 +10,7 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from pygrocy2.data_models.battery import Battery
 from pygrocy2.data_models.chore import Chore
+from pygrocy2.data_models.chore_log import ChoreLog
 from pygrocy2.data_models.product import Product, ShoppingListProduct
 from pygrocy2.data_models.task import Task
 from pygrocy2.grocy import Grocy
@@ -32,6 +33,7 @@ _LOGGER = logging.getLogger(__name__)
 class GrocyCoordinatorData:
     batteries: list[Battery] | None = None
     chores: list[Chore] | None = None
+    chores_log: list[ChoreLog] | None = None
     expired_products: list[Product] | None = None
     expiring_products: list[Product] | None = None
     meal_plan: list[MealPlanItemWrapper] | None = None

@@ -17,6 +17,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from .const import (
     ATTR_BATTERIES,
     ATTR_CHORES,
+    ATTR_CHORES_LOG,
     ATTR_EXPIRED_PRODUCTS,
     ATTR_EXPIRING_PRODUCTS,
     ATTR_MEAL_PLAN,
@@ -102,6 +103,7 @@ async def _async_get_available_entities(grocy_data: GrocyData) -> list[str]:
         if "FEATURE_FLAG_CHORES" in grocy_config.enabled_features:
             available_entities.append(ATTR_CHORES)
             available_entities.append(ATTR_OVERDUE_CHORES)
+            available_entities.append(ATTR_CHORES_LOG)
 
         if "FEATURE_FLAG_RECIPES" in grocy_config.enabled_features:
             available_entities.append(ATTR_MEAL_PLAN)

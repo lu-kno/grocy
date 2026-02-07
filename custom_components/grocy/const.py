@@ -30,6 +30,7 @@ If you have any issues with this you need to open an issue here:
 """
 
 CHORES: Final = "Chore(s)"
+CHORES_LOG: Final = "Chore Log(s)"
 MEAL_PLANS: Final = "Meal(s)"
 PRODUCTS: Final = "Product(s)"
 TASKS: Final = "Task(s)"
@@ -37,6 +38,7 @@ ITEMS: Final = "Item(s)"
 
 ATTR_BATTERIES: Final = "batteries"
 ATTR_CHORES: Final = "chores"
+ATTR_CHORES_LOG: Final = "chores_log"
 ATTR_EXPIRED_PRODUCTS: Final = "expired_products"
 ATTR_EXPIRING_PRODUCTS: Final = "expiring_products"
 ATTR_MEAL_PLAN: Final = "meal_plan"

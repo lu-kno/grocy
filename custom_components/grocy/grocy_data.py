@@ -12,11 +12,13 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.http import HomeAssistantView
 from pygrocy2.data_models.battery import Battery
 from pygrocy2.data_models.chore import Chore
+from pygrocy2.data_models.chore_log import ChoreLog
 from pygrocy2.grocy import Grocy
 
 from .const import (
     ATTR_BATTERIES,
     ATTR_CHORES,
+    ATTR_CHORES_LOG,
     ATTR_EXPIRED_PRODUCTS,
     ATTR_EXPIRING_PRODUCTS,
     ATTR_MEAL_PLAN,
@@ -47,6 +49,7 @@ class GrocyData:
         self.entity_update_method = {
             ATTR_STOCK: self.async_update_stock,
             ATTR_CHORES: self.async_update_chores,
+            ATTR_CHORES_LOG: self.async_update_chores_log,
             ATTR_TASKS: self.async_update_tasks,
             ATTR_SHOPPING_LIST: self.async_update_shopping_list,
             ATTR_EXPIRING_PRODUCTS: self.async_update_expiring_products,
@@ -81,6 +84,14 @@ class GrocyData:
 
         def wrapper() -> list[Chore]:
             return self.api.chores(True)
+
+        return await self.hass.async_add_executor_job(wrapper)
+
+    async def async_update_chores_log(self):
+        """Update chores log data."""
+
+        def wrapper() -> list[ChoreLog]:
+            return self.api.chores_log(True)
 
         return await self.hass.async_add_executor_job(wrapper)
 
