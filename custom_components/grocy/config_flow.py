@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 import voluptuous as vol
 from homeassistant import config_entries
-from pygrocy2.grocy import Grocy
+from grocy.grocy import Grocy
 
 from .const import (
     CONF_API_KEY,

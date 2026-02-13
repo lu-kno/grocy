@@ -18,11 +18,11 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pygrocy2.data_models.battery import Battery
-from pygrocy2.data_models.chore import Chore
-from pygrocy2.data_models.meal_items import MealPlanItem
-from pygrocy2.data_models.product import Product, ShoppingListProduct
-from pygrocy2.data_models.task import Task
+from grocy.data_models.battery import Battery
+from grocy.data_models.chore import Chore
+from grocy.data_models.meal_items import MealPlanItem
+from grocy.data_models.product import Product, ShoppingListProduct
+from grocy.data_models.task import Task
 
 from .const import (
     ATTR_BATTERIES,

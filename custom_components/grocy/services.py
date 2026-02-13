@@ -5,8 +5,8 @@ from __future__ import annotations
 import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, ServiceCall
-from pygrocy2.data_models.generic import EntityType
-from pygrocy2.grocy_api_client import TransactionType
+from grocy.data_models.generic import EntityType
+from grocy.grocy_api_client import TransactionType
 
 from .const import ATTR_CHORES, ATTR_TASKS, DOMAIN
 from .coordinator import GrocyDataUpdateCoordinator
@@ -254,7 +254,7 @@ async def async_add_product_service(
     price = data.get(SERVICE_PRICE, "")
 
     def wrapper():
-        coordinator.grocy_api.add_product(product_id, amount, price)
+        coordinator.grocy_api.stock.add(product_id, amount, price)
 
     await hass.async_add_executor_job(wrapper)
 
@@ -268,7 +268,7 @@ async def async_open_product_service(
     allow_subproduct_substitution = data.get(SERVICE_SUBPRODUCT_SUBSTITUTION, False)
 
     def wrapper():
-        coordinator.grocy_api.open_product(
+        coordinator.grocy_api.stock.open(
             product_id, amount, allow_subproduct_substitution
         )
 
@@ -291,7 +291,7 @@ async def async_consume_product_service(
         transaction_type = TransactionType[transaction_type_raw]
 
     def wrapper():
-        coordinator.grocy_api.consume_product(
+        coordinator.grocy_api.stock.consume(
             product_id,
             amount,
             spoiled=spoiled,
@@ -311,7 +311,7 @@ async def async_execute_chore_service(
     skipped = data.get(SERVICE_SKIPPED, False)
 
     def wrapper():
-        coordinator.grocy_api.execute_chore(chore_id, done_by, skipped=skipped)
+        coordinator.grocy_api.chores.execute(chore_id, done_by, skipped=skipped)
 
     await hass.async_add_executor_job(wrapper)
     await _async_force_update_entity(coordinator, ATTR_CHORES)
@@ -324,7 +324,7 @@ async def async_complete_task_service(
     task_id = data[SERVICE_TASK_ID]
 
     def wrapper():
-        coordinator.grocy_api.complete_task(task_id)
+        coordinator.grocy_api.tasks.complete(task_id)
 
     await hass.async_add_executor_job(wrapper)
     await _async_force_update_entity(coordinator, ATTR_TASKS)
@@ -343,7 +343,7 @@ async def async_add_generic_service(
     data = data[SERVICE_DATA]
 
     def wrapper():
-        coordinator.grocy_api.add_generic(entity_type, data)
+        coordinator.grocy_api.generic.create(entity_type, data)
 
     await hass.async_add_executor_job(wrapper)
     await _post_generic_refresh(coordinator, entity_type)
@@ -364,7 +364,7 @@ async def async_update_generic_service(
     data = data[SERVICE_DATA]
 
     def wrapper():
-        coordinator.grocy_api.update_generic(entity_type, object_id, data)
+        coordinator.grocy_api.generic.update(entity_type, object_id, data)
 
     await hass.async_add_executor_job(wrapper)
     await _post_generic_refresh(coordinator, entity_type)
@@ -383,7 +383,7 @@ async def async_delete_generic_service(
     object_id = int(data[SERVICE_OBJECT_ID])
 
     def wrapper():
-        coordinator.grocy_api.delete_generic(entity_type, object_id)
+        coordinator.grocy_api.generic.delete(entity_type, object_id)
 
     await hass.async_add_executor_job(wrapper)
     await _post_generic_refresh(coordinator, entity_type)
@@ -401,7 +401,7 @@ async def async_consume_recipe_service(
     recipe_id = data[SERVICE_RECIPE_ID]
 
     def wrapper():
-        coordinator.grocy_api.consume_recipe(recipe_id)
+        coordinator.grocy_api.recipes.consume(recipe_id)
 
     await hass.async_add_executor_job(wrapper)
 
@@ -415,7 +415,7 @@ async def async_remove_product_in_shopping_list(
     amount = data[SERVICE_AMOUNT]
 
     def wrapper():
-        coordinator.grocy_api.remove_product_in_shopping_list(
+        coordinator.grocy_api.shopping_list.remove_product(
             product_id, shopping_list_id, amount
         )
 
@@ -429,7 +429,7 @@ async def async_track_battery_service(
     battery_id = data[SERVICE_BATTERY_ID]
 
     def wrapper():
-        coordinator.grocy_api.charge_battery(battery_id)
+        coordinator.grocy_api.batteries.charge(battery_id)
 
     await hass.async_add_executor_job(wrapper)
 
@@ -439,7 +439,7 @@ async def async_add_missing_products_to_shopping_list(hass, coordinator, data):
     list_id = data.get(SERVICE_LIST_ID, 1)
 
     def wrapper():
-        coordinator.grocy_api.add_missing_product_to_shopping_list(list_id)
+        coordinator.grocy_api.shopping_list.add_missing_products(list_id)
 
     await hass.async_add_executor_job(wrapper)
 
@@ -451,7 +451,7 @@ async def async_remove_product_in_shopping_list_service(hass, coordinator, data)
     amount = data[SERVICE_AMOUNT]
 
     def wrapper():
-        coordinator.grocy_api.remove_product_in_shopping_list(
+        coordinator.grocy_api.shopping_list.remove_product(
             product_id, list_id, amount
         )
 

@@ -9,7 +9,7 @@ dependencies = [
     "homeassistant",
     "pip>=21.3.1",
     "ruff==0.12.2",
-    "pygrocy2==2.5.0",
+    "grocy-py==2.7.0",
 ]
 
 [project.urls]

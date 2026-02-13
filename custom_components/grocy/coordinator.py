@@ -8,12 +8,12 @@ from dataclasses import dataclass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from pygrocy2.data_models.battery import Battery
-from pygrocy2.data_models.chore import Chore
-from pygrocy2.data_models.chore_log import ChoreLog
-from pygrocy2.data_models.product import Product, ShoppingListProduct
-from pygrocy2.data_models.task import Task
-from pygrocy2.grocy import Grocy
+from grocy.data_models.battery import Battery
+from grocy.data_models.chore import Chore
+from grocy.data_models.chore_log import ChoreLog
+from grocy.data_models.product import Product, ShoppingListProduct
+from grocy.data_models.task import Task
+from grocy.grocy import Grocy
 
 from .const import (
     CONF_API_KEY,
