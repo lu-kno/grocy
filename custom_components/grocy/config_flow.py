@@ -88,7 +88,7 @@ class GrocyFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
             def system_info():
                 """Get system information from Grocy."""
-                return client.get_system_info()
+                return client.system.info()
 
             await self.hass.async_add_executor_job(system_info)
             return True

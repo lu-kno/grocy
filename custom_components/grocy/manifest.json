@@ -7,6 +7,6 @@
   "documentation": "https://github.com/lu-kno/grocy",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/lu-kno/grocy/issues",
-  "requirements": ["grocy@git+https://github.com/lu-kno/grocy-py.git"],
+  "requirements": ["grocy-py@git+https://github.com/lu-kno/grocy-py.git"],
   "version": "1.3.3"
 }
